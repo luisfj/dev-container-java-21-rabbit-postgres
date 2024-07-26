@@ -1,0 +1,11 @@
+# top-most EditorConfig file
+root = true
+
+# Unix-style newlines with a newline ending every file
+[*]
+end_of_line = lf
+indent_style = space
+indent_size = 3
+insert_final_newline = true
+file_header_template = Copyright (c) 2024 Luis Fernando Johann. All Rights Reserved. See file LICENSE in this repo for details.
+trim_trailing_whitespace = true

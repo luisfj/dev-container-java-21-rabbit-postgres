@@ -1,0 +1,9 @@
+{
+    "java.configuration.updateBuildConfiguration": "disabled",
+    "java.compile.nullAnalysis.mode": "disabled",
+    "editor.tabSize": 3,
+    "remote.autoForwardPorts": false,
+    "remote.restoreForwardedPorts": false,
+    "typescript.preferences.quoteStyle": "single",
+    "java.debug.settings.onBuildFailureProceed": true
+}

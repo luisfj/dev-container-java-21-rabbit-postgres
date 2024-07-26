@@ -1,0 +1,120 @@
+version: '3.8'
+
+volumes:
+  postgres-data:
+
+
+networks:
+  host:
+
+
+services:
+  app:
+    container_name: javadev_rifa_lf
+    build:
+      context: .
+      dockerfile: Dockerfile
+    environment:
+      # NOTE: POSTGRES_DB/USER/PASSWORD should match values in db container
+      POSTGRES_PASSWORD: ${POSTGRESQL_PASS}
+      POSTGRES_USER: ${POSTGRESQL_USER}
+      POSTGRES_DB: ${POSTGRESQL_DB}
+      POSTGRES_HOSTNAME: db
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    volumes:
+      - ../..:/workspaces:cached
+
+    # Overrides default command so things don't shut down after the process ends.
+    command: sleep infinity
+
+    # Runs app on the same network as the database container, allows "forwardPorts" in devcontainer.json function.
+    networks:
+      - host
+    depends_on:
+      - db
+    # Use "forwardPorts" in **devcontainer.json** to forward an app port locally. 
+    # (Adding the "ports" property to this file will not forward from a Codespace.)
+
+  keycloak:
+    container_name: keycloak
+    hostname: keycloak-dev.local
+    image: quay.io/keycloak/keycloak:${KEYCLOAK_VERSION}
+    restart: unless-stopped
+    depends_on:
+      - db
+    environment:
+      KEYCLOAK_ADMIN: admin
+      KEYCLOAK_ADMIN_PASSWORD: admin
+      # DB_VENDOR: postgres
+      # DB_ADDR: db
+      # DB_PORT: 5432
+      # DB_DATABASE: ${POSTGRESQL_DB_KEYCLOAK}
+      # DB_USER: ${POSTGRESQL_USER}
+      # DB_PASSWORD: ${POSTGRESQL_PASS}
+
+      KC_LOG: console
+      KC_HOSTNAME: keycloak-dev.local
+      # KC_HOSTNAME_PORT: 5432
+      # KC_HOSTNAME_STRICT_BACKCHANNEL: "true"
+      KC_DB: postgres
+      KC_DB_URL: jdbc:postgresql://db:5432/${POSTGRESQL_DB_KEYCLOAK}
+      KC_DB_USERNAME: ${POSTGRESQL_USER}
+      KC_DB_PASSWORD: ${POSTGRESQL_PASS}
+      PROXY_ADDRESS_FORWARDING: "true"
+      # KC_HEALTH_ENABLED: "true"
+      KC_LOG_LEVEL: info
+      # healthcheck:
+      #   test:
+      #     [
+      #       "CMD",
+      #       "curl",
+      #       "-f",
+      #       "http://localhost:7080/health/ready"
+      #     ]
+      #   interval: 15s
+      #   timeout: 2s
+      #   retries: 15
+    command:
+      [
+        "start-dev",
+        "--hostname-strict-https=false",
+        # "--hostname-strict-backchannel=true",
+        "--http-enabled",
+        "true",
+        "--http-port",
+        "28888",
+        "--https-port",
+        "28787",
+        "--import-realm"
+      ]
+    networks:
+      - host
+    volumes:
+      - ./keycloak/realm-export.json:/opt/keycloak/data/import/realm-export.json
+    ports:
+      - 28888:28888
+      - 28787:28787
+
+  db:
+    container_name: postgresdb_rifa
+    image: postgres:${POSTGRESQL_VERSION}
+    restart: unless-stopped
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+      - ./postgres:/docker-entrypoint-initdb.d
+    environment:
+      - POSTGRES_USER=${POSTGRESQL_USER}
+      - POSTGRES_PASSWORD=${POSTGRESQL_USER}
+      - POSTGRES_MULTIPLE_DATABASES=${POSTGRESQL_DB},${POSTGRESQL_DB_KEYCLOAK}
+      # NOTE: POSTGRES_DB/USER/PASSWORD should match values in app container
+      # POSTGRES_PASSWORD: ${POSTGRESQL_PASS}
+      # POSTGRES_USER: ${POSTGRESQL_USER}
+      # POSTGRES_DB: ${POSTGRESQL_DB}
+      # POSTGRES_MULTIPLE_DATABASES: "${POSTGRESQL_DB}","${POSTGRESQL_DB_KEYCLOAK}"
+    networks:
+      - host
+    ports:
+      - "5777:5432"
+    # Add "forwardPorts": ["5432"] to **devcontainer.json** to forward PostgreSQL locally.
+    # (Adding the "ports" property to this file will not forward from a Codespace.)

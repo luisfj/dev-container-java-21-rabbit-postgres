@@ -1,0 +1,122 @@
+{
+    "java.configuration.updateBuildConfiguration": "automatic",
+    "configurations": [
+        {
+            "type": "java",
+            "name": "ExamplesApplication",
+            "request": "launch",
+            "mainClass": "dev.luisjohann.examples.ExamplesApplication",
+            "projectName": "examples"
+        },
+        {
+            "type": "java",
+            "name": "OfxMsSseApplication",
+            "request": "launch",
+            "mainClass": "OfxMsSseApplication",
+            "projectName": "ofxmssse"
+        },
+        {
+            "type": "java",
+            "name": "OfxMsSseApplication",
+            "request": "launch",
+            "mainClass": "dev.luisjohann.ofxmssse.OfxMsSseApplication",
+            "projectName": "ofxmssse"
+        },
+        {
+            "type": "java",
+            "name": "OfxmsdataApplication",
+            "request": "launch",
+            "mainClass": "dev.luisjohann.ofxmsdata.OfxmsdataApplication"
+        },
+        {
+            "type": "java",
+            "name": "OfxMsDataApplication",
+            "request": "launch",
+            "mainClass": "dev.luisjohann.ofxmsdata.OfxMsDataApplication"
+        },
+        {
+            "type": "java",
+            "name": "OfxMsImportApplication",
+            "request": "launch",
+            "mainClass": "dev.luisjohann.ofxmsimport.OfxMsImportApplication",
+            "projectName": "ofxmsimport",
+            "vmArgs": " -Dcom.sun.management.jmxremote -Dcom.sun.management.jmxremote.port=46283 -Dcom.sun.management.jmxremote.authenticate=false -Dcom.sun.management.jmxremote.ssl=false -Dspring.jmx.enabled=true -Djava.rmi.server.hostname=localhost -Dspring.application.admin.enabled=true -Dspring.boot.project.name=ofxmsimport"
+        },
+        {
+            "type": "java",
+            "name": "OfxMsImportApplication",
+            "request": "launch",
+            "mainClass": "dev.luisjohann.ofxmsimport.OfxMsImportApplication",
+            "projectName": "ofx-ms-import"
+        },
+        {
+            "type": "java",
+            "name": "OfxGatewayApplication",
+            "request": "launch",
+            "mainClass": "dev.luisjohann.ofxgateway.OfxGatewayApplication",
+            "projectName": "ofx-gateway",
+            "vmArgs": " -Dcom.sun.management.jmxremote -Dcom.sun.management.jmxremote.port=39575 -Dcom.sun.management.jmxremote.authenticate=false -Dcom.sun.management.jmxremote.ssl=false -Dspring.jmx.enabled=true -Djava.rmi.server.hostname=localhost -Dspring.application.admin.enabled=true -Dspring.boot.project.name=ofx-gateway"
+        },
+        {
+            "type": "java",
+            "name": "Spring Boot-OfxmssseApplication<ofxmssse>",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "mainClass": "dev.luisjohann.ofxmssse.OfxmssseApplication",
+            "projectName": "ofxmssse",
+            "args": "",
+            "envFile": "${workspaceFolder}/.env"
+        },
+        {
+            "type": "java",
+            "name": "Spring Boot-OfxMsSseApplication<dev.luisjohann-ofxmssse>",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "mainClass": "dev.luisjohann.ofxmssse.OfxMsSseApplication",
+            "projectName": "dev.luisjohann-ofxmssse",
+            "args": "",
+            "envFile": "${workspaceFolder}/.env"
+        },
+        {
+            "type": "java",
+            "name": "Spring Boot-OfxMsImportApplication<dev.luisjohann-ofxmsimport>",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "mainClass": "dev.luisjohann.ofxmsimport.OfxMsImportApplication",
+            "projectName": "dev.luisjohann-ofxmsimport",
+            "args": "",
+            "envFile": "${workspaceFolder}/.env"
+        },
+        {
+            "type": "java",
+            "name": "Spring Boot-OfxGatewayApplication<dev.luisjohann-ofx-gateway>",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "mainClass": "dev.luisjohann.ofxgateway.OfxGatewayApplication",
+            "projectName": "dev.luisjohann-ofx-gateway",
+            "args": "",
+            "envFile": "${workspaceFolder}/.env"
+        },
+        {
+            "type": "java",
+            "name": "Spring Boot-OfxpermissioncheckerApplication<ofxpermissionchecker>",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "mainClass": "dev.luisjohann.ofxpermissionchecker.OfxpermissioncheckerApplication",
+            "projectName": "ofxpermissionchecker",
+            "args": "",
+            "envFile": "${workspaceFolder}/.env",
+            "vmArgs": " -Dcom.sun.management.jmxremote -Dcom.sun.management.jmxremote.port=37553 -Dcom.sun.management.jmxremote.authenticate=false -Dcom.sun.management.jmxremote.ssl=false -Dspring.jmx.enabled=true -Djava.rmi.server.hostname=localhost -Dspring.application.admin.enabled=true -Dspring.boot.project.name=ofxpermissionchecker"
+        },
+        {
+            "type": "java",
+            "name": "Spring Boot-OfxmsdataApplication<ofxmsdata>",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "mainClass": "dev.luisjohann.ofxmsdata.OfxmsdataApplication",
+            "projectName": "ofxmsdata",
+            "args": "",
+            "envFile": "${workspaceFolder}/.env"
+        }
+    ]
+}
