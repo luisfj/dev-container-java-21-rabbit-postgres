@@ -1,0 +1,39 @@
+version: '3.8'
+
+volumes:
+  postgres-data: ./docker-conf/postgres/data/
+  rabbit-data: ./docker-conf/rabbitmq/data/
+  rabbit-log: ./docker-conf/rabbitmq/log/
+
+networks:
+  prodnet:
+    external: true
+
+services:
+  db:
+    container_name: postgresdb_ofx
+    image: postgres:16
+    restart: unless-stopped
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+    env_file: "pg.env"
+    networks:
+      - prodnet
+    ports:
+      - "5777:5432"
+
+  rabbitmq:
+    image: rabbitmq:3.13.3-management-alpine
+    container_name: rabbitmq_ofx
+    ports:
+      - 5672:5672
+      - 15672:15672
+    env_file: "rabbit.env"
+    environment:
+      - RABBITMQ_DEFAULT_PASS=admin
+      - RABBITMQ_DEFAULT_USER=admin
+    volumes:
+      - rabbit-data:/var/lib/rabbitmq/
+      - rabbit-log:/var/log/rabbitmq
+    networks:
+      - prodnet
